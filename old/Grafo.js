@@ -161,3 +161,10 @@ function Caminho() {
         return lista.concat();
     };
 }
+
+module.exports = {
+    Grafo,
+    Conexoes,
+    No,
+    Caminho
+}
