@@ -1,0 +1,30 @@
+{
+  "name": "dijkstra",
+  "version": "1.0.0",
+  "description": "Dijkstra ========",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acbp/Dijkstra.git"
+  },
+  "keywords": [
+    "dataStructer",
+    "mocha",
+    "javascript"
+  ],
+  "author": "Alexandre Calil Blasizza Paravani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acbp/Dijkstra/issues"
+  },
+  "homepage": "https://github.com/acbp/Dijkstra#readme",
+  "devDependencies": {
+    "mocha": "^9.2.2"
+  }
+}
