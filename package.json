@@ -1,7 +1,7 @@
 {
   "name": "dijkstra",
   "version": "1.0.0",
-  "description": "Dijkstra ========",
+  "description": "Dijkstra",
   "main": "index.js",
   "directories": {
     "test": "test"

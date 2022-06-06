@@ -20,15 +20,17 @@ module.exports = class Graph {
         return v;
     }
 
-    addEdge(v1, v2) {
-        if (this.#isInvalid(v1) || this.#isInvalid(v2) || v1 === v2) {
+    addEdge(v1, v2, w) {
+        if (v1 === v2 || this.#isInvalid(v1) || this.#isInvalid(v2)) {
             return
         }
 
         this.addVertex(v1)
         this.addVertex(v2)
-        const edge = new Edge(v1, v2)
+        const edge = new Edge(v1, v2, w)
         this.#edges.add(edge)
+        v1.edges.add(v2)
+        v2.edges.add(v1)
         return edge
     }
     get totalVertex() {
@@ -52,7 +54,7 @@ module.exports = class Graph {
         let i = 0;
         this.#vertexes.forEach(v => {
             r.push([]);
-            this.#edges.forEach(rv => {
+            v.edges.forEach(rv => {
                 r[i].push(rv)
             })
             i++;

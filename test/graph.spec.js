@@ -3,38 +3,6 @@ const assert = require('assert')
 const graph = require('../src/graph.js')
 const edge = require('../src/edge.js')
 const vertex = require('../src/vertex.js')
-const Edge = require('../src/edge.js')
-
-describe('Classes', () => {
-    describe('Expect not be undefined', () => {
-        it('Graph class', () => {
-            const g = new graph
-            assert.notEqual(g, undefined)
-        })
-        it('Edge class', () => {
-            const g = new edge
-            assert.notEqual(g, undefined)
-        })
-        it('Vertex class', () => {
-            const g = new vertex
-            assert.notEqual(g, undefined)
-        })
-    })
-    describe('Expect be defined', () => {
-        it('Graph class', () => {
-            const g = new graph
-            assert.deepStrictEqual(g, new graph)
-        })
-        it('Edge class', () => {
-            const g = new edge
-            assert.deepStrictEqual(g, new edge)
-        })
-        it('Vertex class', () => {
-            const g = new vertex
-            assert.deepStrictEqual(g, new vertex)
-        })
-    })
-})
 
 describe('Graph', () => {
     describe('addVertex', () => {
@@ -58,8 +26,8 @@ describe('Graph', () => {
         const g = new graph
         const v1 = new vertex
         const v2 = new vertex
-        const ee = g.addEdge(v1,v2)
-        const e = new edge(v1,v2)
+        const ee = g.addEdge(v1, v2)
+        const e = new edge(v1, v2)
 
         it('must have two Vertexes', () => {
             assert.equal(g.totalVertex, 2)
@@ -73,16 +41,14 @@ describe('Graph', () => {
             assert.deepStrictEqual(ee, e)
         })
     })
-    describe('toArray',()=>{
+    describe('toArray', () => {
         const g = new graph
         const v1 = new vertex
         const v2 = new vertex
-        const ee = g.addEdge(v1,v2)
-        
+        g.addEdge(v1, v2)
 
-        it('must be an array',()=>{
-            console.log(g.toArray)
-            assert.fail('failcheck');
+        it('each edges must be an array of vertex', () => {
+            assert.deepStrictEqual(g.toArray, [[v2], [v1]])
         })
     })
 })
