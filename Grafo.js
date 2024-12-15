@@ -10,17 +10,17 @@ function Grafo() {
     var l = 0;
     this.pegarConexoesNo = function(no) {
         var i = 0
-                , con = conexoes
-                , m = con.length
-                , c = 0
-                , a = [];
+        , con = conexoes
+        , m = con.length
+        , c = 0
+        , a = [];
         for (i; i < m; i++) {
             if(con[i].doNo)
-            if (con[i].doNo.dado === no)
-                a[c++] = con[i];
+                if (con[i].doNo.dado === no)
+                    a[c++] = con[i];
             if(con[i].paraNo)
-            if (con[i].paraNo.dado === no)
-                a[c++] = con[i];
+                if (con[i].paraNo.dado === no)
+                    a[c++] = con[i];
         }
         return (a.length > 0 ? a : (a = null));
     };
@@ -46,9 +46,9 @@ function Grafo() {
         var i = 0, m = nos.length;
 
         for (i; i < m; i++) {
-                if (nos[i] === no || nos[i].dado === no) {
-                    return nos[i];
-                }
+            if (nos[i] === no || nos[i].dado === no) {
+                return nos[i];
+            }
         }
         nos.push( new No(no) );
         return nos[nos.length-1];

@@ -9,8 +9,8 @@
  */
 function Dijkstra(_grafo, _inicio, _fim) {
 
-//    console.log('new dijkstra', arguments);
-//    console.log('new dijkstra', _inicio,_fim);
+    //    console.log('new dijkstra', arguments);
+    //    console.log('new dijkstra', _inicio,_fim);
     var t = new Date();
 
     var aberta = new Caminho();
@@ -36,7 +36,7 @@ function Dijkstra(_grafo, _inicio, _fim) {
 
         conexoes = _grafo.pegarConexoesNo(atual.dado);
 
-//        console.log( atual );
+        //        console.log( atual );
         c = null;i = 0;
         m = conexoes.length;
 
@@ -50,20 +50,20 @@ function Dijkstra(_grafo, _inicio, _fim) {
 
             custoFinal = atual.total + c.custo;
 
-//            console.log(i, final);
+            //            console.log(i, final);
             if (fechada.contem(final)) {
-//                console.log('tem na fechada ');
+                //                console.log('tem na fechada ');
                 continue;
             }
             else if (aberta.contem(final)) {
-//                console.log('tem na aberta ');
+                //                console.log('tem na aberta ');
                 final = aberta.procurar(final);
 
                 if (final.total <= custoFinal)
                     continue;
             }
             else {
-//                if( final.dado === {x:100,y:150}) console.log('novo\n-', c,'\n-F',final,'\n-A',atual,'|\n');
+                //                if( final.dado === {x:100,y:150}) console.log('novo\n-', c,'\n-F',final,'\n-A',atual,'|\n');
                 noFinal = new No();
                 noFinal.dado = final.dado;
                 noFinal.conexoes = [new Conexoes( atual, final, c.custo)];
@@ -76,13 +76,13 @@ function Dijkstra(_grafo, _inicio, _fim) {
         }
         aberta.sub(atual)
         fechada.add(atual)
-//        console.log('atual',atual.dado,atual);
-//        console.log('atual aberta caminho ', aberta.caminho());
-//        console.log('atual fechada caminho ', fechada.caminho());
-//        console.log('add', aberta.sub(atual));
-//        console.log('sub', fechada.add(atual));
-//        console.log('aberta caminho ', aberta.caminho());
-//        console.log('fechada caminho ', fechada.caminho());
+        //        console.log('atual',atual.dado,atual);
+        //        console.log('atual aberta caminho ', aberta.caminho());
+        //        console.log('atual fechada caminho ', fechada.caminho());
+        //        console.log('add', aberta.sub(atual));
+        //        console.log('sub', fechada.add(atual));
+        //        console.log('aberta caminho ', aberta.caminho());
+        //        console.log('fechada caminho ', fechada.caminho());
     }// fim while
 
     if (atual.dado !== _fim) {
@@ -91,10 +91,10 @@ function Dijkstra(_grafo, _inicio, _fim) {
     else {
         var control = 10;
         var caminho = [];
-//        while ( atual !==null ) {
+        //        while ( atual !==null ) {
         while ( control-->0 ) {
             caminho.push(atual);
-//            console.log( atual );
+            //            console.log( atual );
             if( atual.conexoes )
                 atual = atual.conexoes[0].doNo;
             else break;

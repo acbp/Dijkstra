@@ -4,6 +4,9 @@ ctx.imageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;
 ctx.miterLimit = 1;
 
+var offset_y = -2;
+var offset_x = 0;
+
 function mostrarGrafo(grafo) {
     var conexoes = grafo.conexoes();
     var vertices = [];
@@ -17,17 +20,18 @@ function mostrarGrafo(grafo) {
             vertices.push(conexoes[i].paraNo);
     }
 
-    //desenho
-    for (i = 0; i < m; i++)
-        criarArestaTexto(conexoes[i].doNo.dado, conexoes[i].paraNo.dado, conexoes[i].custo);
     m = vertices.length;
     for (i = 0; i < m; i++) {
         criarVertice(vertices[i].dado.x, vertices[i].dado.y);
     }
+    m = conexoes.length
+    //desenho
+    for (i = 0; i < m; i++)
+        criarArestaTexto(conexoes[i].doNo.dado, conexoes[i].paraNo.dado, conexoes[i].custo);
 }
 
 function mostrarCaminho(arr) {
-//    console.log(arr, arr.total);
+    //    console.log(arr, arr.total);
 
     var borda = 'blueviolet';
     var fill = 'black';
@@ -74,11 +78,11 @@ function criarAresta(doNo, paraNo) {
 function criarTexto(texto, x, y) {
     ctx.font = '8pt Calibri';
     ctx.fillStyle = arguments[3] || 'lime';
-    ctx.fillText("" + texto, x, y);
+    ctx.fillText("" + texto, x+offset_x, y+offset_y);
 }
 
 function criarArestaTexto(doNo, paraNo, texto) {
-//    console.log(paraNo, doNo)
+    //    console.log(paraNo, doNo)
     var coef = ((paraNo.y - doNo.y) / (paraNo.x - doNo.x));
     var X, Y, y, x;
 
@@ -124,142 +128,150 @@ function criarArestaTexto(doNo, paraNo, texto) {
 
 function criarVerticeTexto(x, y, texto) {
     criarVertice(x, y, arguments[3], arguments[5]);
-    criarTexto(texto, x - 3.5, y + 3, arguments[4] || 'yellow');
+    let mod = (texto.toString().length-1)*2.5;
+    criarTexto(texto, x - ( 3 + mod )-offset_x, y + 3-offset_y, arguments[4]);
 }
 
 function criarPonto(x, y) {
-    return {x: x, y: y};
+    return {x: x-85, y: y-90};
 }
 
-var g = new Grafo();
-var arrPontos = [
-    criarPonto(100, 100)
-            , criarPonto(100, 200)
-            , criarPonto(100, 300)
-            , criarPonto(100, 400)
-            , criarPonto(100, 500)
-            , criarPonto(100, 600)
+function start(){
+    var g = new Grafo();
+    var arrPontos = [
+        criarPonto(100, 100)
+        , criarPonto(100, 200)
+        , criarPonto(100, 300)
+        , criarPonto(100, 400)
+        , criarPonto(100, 500)
+        , criarPonto(100, 600)
 
-            , criarPonto(200, 100)
-            , criarPonto(200, 200)
-            , criarPonto(200, 300)
-            , criarPonto(200, 400)
-            , criarPonto(200, 500)
-            , criarPonto(200, 600)
+        , criarPonto(200, 100)
+        , criarPonto(200, 200)
+        , criarPonto(200, 300)
+        , criarPonto(200, 400)
+        , criarPonto(200, 500)
+        , criarPonto(200, 600)
 
-            , criarPonto(300, 100)
-            , criarPonto(300, 200)
-            , criarPonto(300, 300)
-            , criarPonto(300, 400)
-            , criarPonto(300, 500)
-            , criarPonto(300, 600)
+        , criarPonto(300, 100)
+        , criarPonto(300, 200)
+        , criarPonto(300, 300)
+        , criarPonto(300, 400)
+        , criarPonto(300, 500)
+        , criarPonto(300, 600)
 
-            , criarPonto(400, 100)
-            , criarPonto(400, 200)
-            , criarPonto(400, 300)
-            , criarPonto(400, 400)
-            , criarPonto(400, 500)
-            , criarPonto(400, 600)
-];
+        , criarPonto(400, 100)
+        , criarPonto(400, 200)
+        , criarPonto(400, 300)
+        , criarPonto(400, 400)
+        , criarPonto(400, 500)
+        , criarPonto(400, 600)
+    ];
 
-g.criarConexao(arrPontos[0], arrPontos[1], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[1], arrPontos[2], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[2], arrPontos[3], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[3], arrPontos[4], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[4], arrPontos[5], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[0], arrPontos[1], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[1], arrPontos[2], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[2], arrPontos[3], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[3], arrPontos[4], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[4], arrPontos[5], parseInt("" + Math.random() * 100));
 
-g.criarConexao(arrPontos[6], arrPontos[7], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[7], arrPontos[8], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[8], arrPontos[9], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[9], arrPontos[10], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[10], arrPontos[11], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[6], arrPontos[7], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[7], arrPontos[8], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[8], arrPontos[9], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[9], arrPontos[10], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[10], arrPontos[11], parseInt("" + Math.random() * 100));
 
-g.criarConexao(arrPontos[12], arrPontos[13], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[13], arrPontos[14], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[14], arrPontos[15], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[15], arrPontos[16], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[16], arrPontos[17], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[12], arrPontos[13], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[13], arrPontos[14], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[14], arrPontos[15], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[15], arrPontos[16], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[16], arrPontos[17], parseInt("" + Math.random() * 100));
 
-g.criarConexao(arrPontos[18], arrPontos[19], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[19], arrPontos[20], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[20], arrPontos[21], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[21], arrPontos[22], parseInt("" + Math.random() * 100));
-g.criarConexao(arrPontos[22], arrPontos[23], parseInt("" + Math.random() * 100));
-
-
-g.criarConexao( arrPontos[0],  arrPontos[6] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[6],  arrPontos[12] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[12],  arrPontos[18] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[1],  arrPontos[7] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[7],  arrPontos[13] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[13],  arrPontos[19] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[2],  arrPontos[8] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[8],  arrPontos[14] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[14],  arrPontos[20] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[3],  arrPontos[9] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[9],  arrPontos[15] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[15],  arrPontos[21] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[4],  arrPontos[10] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[10],  arrPontos[16] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[16],  arrPontos[22] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[5],  arrPontos[11] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[11],  arrPontos[17] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[17],  arrPontos[23] , parseInt(""+Math.random()*100)  );
+    g.criarConexao(arrPontos[18], arrPontos[19], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[19], arrPontos[20], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[20], arrPontos[21], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[21], arrPontos[22], parseInt("" + Math.random() * 100));
+    g.criarConexao(arrPontos[22], arrPontos[23], parseInt("" + Math.random() * 100));
 
 
-g.criarConexao( arrPontos[0],  arrPontos[7] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[7],  arrPontos[14] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[14],  arrPontos[21] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[0],  arrPontos[6] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[6],  arrPontos[12] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[12],  arrPontos[18] , parseInt(""+Math.random()*100)  );
 
-g.criarConexao( arrPontos[1],  arrPontos[8] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[8],  arrPontos[15] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[15],  arrPontos[22] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[1],  arrPontos[7] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[7],  arrPontos[13] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[13],  arrPontos[19] , parseInt(""+Math.random()*100)  );
 
-g.criarConexao( arrPontos[2],  arrPontos[9] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[9],  arrPontos[16] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[16],  arrPontos[23] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[2],  arrPontos[8] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[8],  arrPontos[14] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[14],  arrPontos[20] , parseInt(""+Math.random()*100)  );
 
-g.criarConexao( arrPontos[3],  arrPontos[10] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[10],  arrPontos[17] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[3],  arrPontos[9] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[9],  arrPontos[15] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[15],  arrPontos[21] , parseInt(""+Math.random()*100)  );
 
-g.criarConexao( arrPontos[4],  arrPontos[11] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[4],  arrPontos[10] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[10],  arrPontos[16] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[16],  arrPontos[22] , parseInt(""+Math.random()*100)  );
 
-g.criarConexao( arrPontos[5],  arrPontos[10], parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[10],  arrPontos[15] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[15],  arrPontos[20] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[4],  arrPontos[9], parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[9],  arrPontos[14] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[14],  arrPontos[19] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[3],  arrPontos[8], parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[8],  arrPontos[13] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[13],  arrPontos[18] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[2],  arrPontos[7], parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[7],  arrPontos[12] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[1],  arrPontos[6] , parseInt(""+Math.random()*100)  );
-
-g.criarConexao( arrPontos[6],  arrPontos[13] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[12],  arrPontos[19] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[13],  arrPontos[20] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[16],  arrPontos[21] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[17],  arrPontos[22] , parseInt(""+Math.random()*100)  );
-g.criarConexao( arrPontos[11],  arrPontos[16] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[5],  arrPontos[11] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[11],  arrPontos[17] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[17],  arrPontos[23] , parseInt(""+Math.random()*100)  );
 
 
-mostrarGrafo(g);
-var qwe=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ],ewq=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ];
+    g.criarConexao( arrPontos[0],  arrPontos[7] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[7],  arrPontos[14] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[14],  arrPontos[21] , parseInt(""+Math.random()*100)  );
 
-while( qwe===ewq){
-    ewq=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ];
-}
-mostrarCaminho(
+    g.criarConexao( arrPontos[1],  arrPontos[8] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[8],  arrPontos[15] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[15],  arrPontos[22] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[2],  arrPontos[9] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[9],  arrPontos[16] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[16],  arrPontos[23] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[3],  arrPontos[10] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[10],  arrPontos[17] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[4],  arrPontos[11] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[5],  arrPontos[10], parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[10],  arrPontos[15] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[15],  arrPontos[20] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[4],  arrPontos[9], parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[9],  arrPontos[14] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[14],  arrPontos[19] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[3],  arrPontos[8], parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[8],  arrPontos[13] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[13],  arrPontos[18] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[2],  arrPontos[7], parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[7],  arrPontos[12] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[1],  arrPontos[6] , parseInt(""+Math.random()*100)  );
+
+    g.criarConexao( arrPontos[6],  arrPontos[13] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[12],  arrPontos[19] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[13],  arrPontos[20] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[16],  arrPontos[21] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[17],  arrPontos[22] , parseInt(""+Math.random()*100)  );
+    g.criarConexao( arrPontos[11],  arrPontos[16] , parseInt(""+Math.random()*100)  );
+
+    mostrarGrafo(g);
+    var qwe=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ],ewq=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ];
+
+    while( qwe===ewq){
+        ewq=arrPontos[ parseInt( Math.random()*arrPontos.length-1 ) ];
+    }
+    mostrarCaminho(
         new Dijkstra(g, qwe,ewq )
     );
+}
+function reset(){
+    console.clear();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    start()
+}
+reset()

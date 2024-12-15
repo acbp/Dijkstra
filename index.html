@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html onclick="reset()">
     <head>
         <title>Index</title>
 
@@ -9,16 +9,23 @@
         <style>
             *{
                 background: black;
-                color: gray;
-                position: absolute;
-                //display: inline-block;
-                z-index: -999;
-
             }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                overflow:hidden;
+                cursor:pointer;
+            }
+            canvas{
+            }
+
         </style>
     </head>
-    <body>
-        <canvas id='myCanvas'width="800" height="800"></canvas>
+    <body >
+        <canvas id='myCanvas'width="340" height="540"></canvas>
         <script src="Grafo.js"></script>
         <script src="Dijkstra.js"></script>
         <script src="Visual.js"></script>
